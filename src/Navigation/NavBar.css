@@ -1,0 +1,11 @@
+.NavBar {
+    background-color: lightblue;
+    /* border: black solid 2px; */
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+}
+
+.NavBar-Brand {
+    margin-left: 3rem;
+}
