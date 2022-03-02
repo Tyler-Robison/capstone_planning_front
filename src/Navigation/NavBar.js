@@ -4,39 +4,41 @@ import './NavBar.css'
 import "bootstrap/dist/css/bootstrap.min.css"
 import GlobalContext from "../context/GlobalContext";
 import { Navbar, Container } from "react-bootstrap";
+import lettuce from '../Images/lettuce.png'
 
 const NavBar = ({ logout }) => {
     const { currentUser } = useContext(GlobalContext)
 
     const loggedInView = <>
 
-        <NavLink className="nav-link" to="/recipes">
-            Recipes
+        <NavLink className="nav-link" to="/find_recipes">
+            Find Recipes
         </NavLink>
 
-        <NavLink className="nav-link" to="/meal">
-            Meal Planning
+        <NavLink className="nav-link" to="/recipes/saved-recipes">
+            Saved Recipes
+        </NavLink>
+
+        <NavLink className="nav-link" to="/mealplan">
+            Mealplan
+        </NavLink>
+
+        <NavLink className="nav-link" to="/points">
+            Calculate Points
         </NavLink>
 
 
-        <NavLink className="nav-link" to="/users/profile">
-            Profile
-        </NavLink>
-
-        {/* TODO: don't need logout if no currentUser */}
-        {currentUser ?
-            <button onClick={logout}> Log Out {currentUser.firstName}</button> :
-            <button onClick={logout}> Log Out   </button>}
+        {currentUser && <button className="general-btn-red logout-btn" onClick={logout}> Log Out {currentUser.username}</button>}
 
     </>
 
     const loggedOutView = <>
 
-        <NavLink className="nav-link" to="/users/signup">
+        <NavLink className="nav-link signup" to="/users/signup">
             Signup
         </NavLink>
-
-        <NavLink className="nav-link" to="/users/login">
+    
+        <NavLink className="nav-link login" to="/users/login">
             Login
         </NavLink>
 
@@ -45,9 +47,14 @@ const NavBar = ({ logout }) => {
     // carrot icon next to healthy eater
     return (
         <Navbar className="NavBar" expand="lg">
-            <Navbar.Brand className="NavBar-Brand" href="healthy-eater">Healthy-Eater</Navbar.Brand>
-            <Container>
 
+            <Navbar.Brand className="NavBar-Brand">
+                <NavLink className="nav-link" to="/healthy-eater">
+                    Healthy-Eater<img className="brand-img" src={lettuce} height='28px' width='28px'></img>
+                </NavLink>
+            </Navbar.Brand>
+
+            <Container>
 
                 {currentUser ? loggedInView : loggedOutView}
 

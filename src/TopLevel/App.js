@@ -12,7 +12,8 @@ function App() {
 
   const [token, setToken] = useLocalStorage('token')
   const [currentUser, setCurrentUser] = useState(null);
-  const [msg, setMsg] = useState(null);
+  const [msg, setMsg] = useState('');
+  const [recipes, setRecipes] = useState([])
 
   // const displayMsg = message => setMsg(message);
   const clearMsg = () => setMsg(null);
@@ -20,14 +21,16 @@ function App() {
   const logout = () => setToken(null);
   const login = token => setToken(token);
 
+  // changed to id instead of username
   useEffect(() => {
     const loginLogout = async () => {
       if (token && token.length !== 0) {
-        const username = jwt.decode(token).username
-        // res contains user detail
-        console.log('useEffect', username)
-        const res = await UserAPI.getUserInfo(username, token)
-        console.log('use effect res', res)
+        // token only contains id, username, isAdmin
+        // createToken function determines what it contains
+        const id = jwt.decode(token).id
+        // this is where login is failing
+        // middle-ware protection on .get /:id
+        const res = await UserAPI.getUserInfo(id, token)
         setCurrentUser(res);
       }
       else {
@@ -37,13 +40,17 @@ function App() {
     loginLogout()
   }, [token])
 
+  // state where each var is being used
   const providerObj = { 
     currentUser, 
     setCurrentUser,
     token,
     login,
+    msg,
     setMsg,
-    clearMsg 
+    clearMsg,
+    recipes, 
+    setRecipes 
   }
 
 
@@ -51,9 +58,6 @@ function App() {
     <div className="App">
       <GlobalContext.Provider value={providerObj}>
         <NavBar logout={logout} />
-        {/* <h2>currentUser: {currentUser ? currentUser.username : 'Not logged in'}</h2>
-        <h2>token: {token || 'Not logged in'}</h2> */}
-        <Message msg={msg} />
         <RouteList />
       </GlobalContext.Provider>
     </div>

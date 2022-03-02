@@ -1,11 +1,40 @@
 .NavBar {
-    background-color: lightblue;
+    background-color: rgb(252, 184, 58);
+    color: blue;
     /* border: black solid 2px; */
     display: flex;
     flex-direction: row;
-    margin-bottom: 2rem;
+    border-bottom: 2px blue solid;
+    position: relative;
+}
+
+.nav-link.active {
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 .NavBar-Brand {
     margin-left: 3rem;
+    padding-right: 8rem;
+}
+
+.logout-btn {
+    position: absolute;
+    right: 3rem;
+}
+
+.login {
+    font-size: 1.2rem;
+    position: absolute;
+    right: 3rem;
+}
+
+.signup {
+    font-size: 1.2rem;
+    position: absolute;
+    right: 8rem;
+}
+
+.brand-img {
+    margin-left: 0.2rem;
 }

@@ -1,29 +1,57 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import FindRecipes from "../Recipes/FindRecipes";
-import RecipeDetail from "../Recipes/RecipeDetail";
-import Meal from "../meals/Meal";
-// import Home from "../Home/Home";
-
-import ProfileForm from "../users/ProfileForm";
+import FindRecipes from "../Recipes/findRecipes/FindRecipes";
+import RecipeDetail from "../Recipes/recipeDetail/RecipeDetail";
+import RequireAuth from "./RequireAuth";
+import MealPlanner from "../userData/mealPlanner/MealPlanner";
+import Home from "../home/Home";
+import UserPoints from "../userData/mealPlanner/UserPoints";
 import LoginForm from "../users/LoginForm";
 import SignupForm from "../users/SignupForm";
-// import RequireAuth from "./RequireAuth";
+import RecipeList from "../Recipes/findRecipes/RecipeList";
+import UserRecipeList from "../userData/UserRecipeList";
 
 const RouteList = () => {
-
+    // routes which require user to be logged in are wrapped in RequireAuth component
+    // which checks for logged-in user and re-directs to login if needed
 
     return (
         <Routes>
-            <Route path="/healthy-eater" element={<FindRecipes />} />
-            <Route path="/:recipeID/detail" element={<RecipeDetail />} />
-            <Route path="/meal" element={<Meal />} />
 
-            {/* user routes */}
+            {/* homepage */}
+            <Route path="/healthy-eater" element={<Home />} />
+
+
+            {/* recipe routes */}
+            <Route path="/find_recipes"
+                element={<RequireAuth redirectTo="/login"><FindRecipes /></RequireAuth>} />
+
+            <Route path="/recipes"
+                element={<RequireAuth redirectTo="/login"><RecipeList /></RequireAuth>} />
+
+            <Route path="/:recipeID/detail"
+                element={<RequireAuth redirectTo="/login"><RecipeDetail /></RequireAuth>} />
+
+            <Route path="/recipes/saved-recipes"
+                element={<RequireAuth redirectTo="/login"><UserRecipeList /></RequireAuth>} />
+
+
+            {/* user auth routes */}
             <Route path="/users/signup" element={<SignupForm />} />
-            <Route path="/users/login" element={<LoginForm />} />
-            <Route path="/users/profile" element={<ProfileForm />} />
 
+            <Route path="/users/login" element={<LoginForm />} />
+
+
+            {/* mealplan routes */}
+            <Route path="/mealplan"
+                element={<RequireAuth redirectTo="/login"><MealPlanner /></RequireAuth>} />
+
+
+            <Route path="/points"
+                element={<RequireAuth redirectTo="/login"><UserPoints /></RequireAuth>} />
+
+
+            {/* re-direct routes */}
             <Route path="/" element={<Navigate replace to="/healthy-eater" />} />
             <Route path='*' element={<Navigate replace to="/healthy-eater" />} />
         </Routes>

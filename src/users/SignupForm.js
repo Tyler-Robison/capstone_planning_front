@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import signupValidate from "./user_validators/signupValidate";
 import GlobalContext from "../context/GlobalContext";
+import './SignupForm.css'
 
 
 const SignupForm = () => {
@@ -19,9 +20,9 @@ const SignupForm = () => {
         initialValues: {
             username: '',
             password: '',
-            firstName: '',
-            lastName: '',
-            email: ''
+            // firstName: '',
+            // lastName: '',
+            // email: ''
         },
         validate,
         onSubmit: values => signup(values),
@@ -42,87 +43,44 @@ const SignupForm = () => {
     }
 
     return (
-        <div>
-            <h1>SignupForm</h1>
+        <div className="SignupForm">
+            <div className="SignupForm-div">
 
-            <form onSubmit={formik.handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        id="username"
-                        name="username"
-                        type='text'
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.username}
-                        placeholder="Username"
-                    />
-                    {formik.touched.username && formik.errors.username && (
-                        <div>{formik.errors.username}</div>
-                    )}
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        name="password"
-                        type='password'
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.password}
-                        placeholder="Password"
-                    />
-                    {formik.touched.password && formik.errors.password && (
-                        <div>{formik.errors.password}</div>
-                    )}
-                </div>
-                <div>
-                    <label htmlFor="firstName">First Name</label>
-                    <input
-                        id="firstName"
-                        name="firstName"
-                        type='text'
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.firstName}
-                        placeholder="First Name"
-                    />
-                    {formik.touched.firstName && formik.errors.firstName && (
-                        <div>{formik.errors.firstName}</div>
-                    )}
-                </div>
-                <div>
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                        id="lastName"
-                        name="lastName"
-                        type='text'
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.lastName}
-                        placeholder="Last Name"
-                    />
-                    {formik.touched.lastName && formik.errors.lastName && (
-                        <div>{formik.errors.lastName}</div>
-                    )}
-                </div>
-                <div>
-                    <label htmlFor="email">E-mail</label>
-                    <input
-                        id="email"
-                        name="email"
-                        type='text'
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.email}
-                        placeholder="E-mail"
-                    />
-                    {formik.touched.email && formik.errors.email && (
-                        <div>{formik.errors.email}</div>
-                    )}
-                </div>
-                <button type="submit">Sign-up</button>
-            </form>
+                <h1>Enter Username/Password</h1>
+                <form onSubmit={formik.handleSubmit}>
+                    <div>
+                        <div><label htmlFor="username">Username</label></div>
+                        <input
+                            id="username"
+                            name="username"
+                            type='text'
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.username}
+                            placeholder="Username"
+                        />
+                        {formik.touched.username && formik.errors.username && (
+                            <div>{formik.errors.username}</div>
+                        )}
+                    </div>
+                    <div>
+                        <div><label htmlFor="password">Password</label></div>
+                        <input
+                            id="password"
+                            name="password"
+                            type='password'
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                            placeholder="Password"
+                        />
+                        {formik.touched.password && formik.errors.password && (
+                            <div>{formik.errors.password}</div>
+                        )}
+                    </div>
+                    <button className="general-btn SignupForm-btn" type="submit">Sign-up</button>
+                </form>
+            </div>
         </div>
     )
 }
