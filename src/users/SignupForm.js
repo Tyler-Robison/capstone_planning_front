@@ -19,10 +19,7 @@ const SignupForm = () => {
     const formik = useFormik({
         initialValues: {
             username: '',
-            password: '',
-            // firstName: '',
-            // lastName: '',
-            // email: ''
+            password: ''
         },
         validate,
         onSubmit: values => signup(values),
